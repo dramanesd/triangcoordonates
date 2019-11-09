@@ -13,7 +13,7 @@ class App extends React.Component {
   render() {
     return (
       <View style={styles.body}>
-        <Text>Hello world!</Text>
+        <Text>Hello Dramane!</Text>
       </View>
     );
   }
