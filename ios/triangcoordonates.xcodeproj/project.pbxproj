@@ -125,6 +125,7 @@
 		13B07FAE1A68108700A75B9A /* triangcoordonates */ = {
 			isa = PBXGroup;
 			children = (
+				3C04F1852376430100C7986B /* Fonts */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -147,6 +148,13 @@
 				C04AE4AE964C471926DD9ABC /* libPods-triangcoordonatesTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3C04F1852376430100C7986B /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
