@@ -2,7 +2,7 @@ import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Entypo';
 
-import {View, Text, Image, StyleSheet, Platform} from 'react-native';
+import {View, Text, ScrollView, Image, StyleSheet, Platform} from 'react-native';
 
 const Badge = () => (
   <LinearGradient
@@ -18,7 +18,7 @@ const Badge = () => (
 
 const About = () => {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Badge />
       </View>
@@ -41,7 +41,7 @@ const About = () => {
           <Text style={styles.contentText}>ddramane63@gmail.com</Text>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
