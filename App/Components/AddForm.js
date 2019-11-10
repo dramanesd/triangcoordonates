@@ -4,6 +4,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {
   View,
   Text,
+  ScrollView,
   StyleSheet,
   TextInput,
   TouchableHighlight,
@@ -24,13 +25,17 @@ class AddForm extends Component {
     super(props);
     this.state = {
       noeud: '',
-      longittitude: '',
-      latitude: '',
+      longittitude: 0,
+      latitude: 0,
     };
   }
 
-  handleChange() {
-    console.log('Hi');
+  handleChange(e) {
+    this.setState({
+      noeud: e.nativeEvent.text,
+      longittitude: e.nativeEvent.text,
+      latitude: e.nativeEvent.text,
+    });
   }
 
   handleSubmit() {
@@ -39,7 +44,7 @@ class AddForm extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.headerStyle}>
           <Text style={styles.headerText}>Ajouter les Coodonnées</Text>
         </View>
@@ -47,20 +52,22 @@ class AddForm extends Component {
           <Text style={styles.label}>Noeud</Text>
           <TextInput
             style={styles.inputStyle}
-            value={this.state.longittitude}
-            onChange={this.handleChange.bind(this)}
+            value={this.state.noeud}
+            onChangeText={text => this.setState({noeud: text})}
           />
           <Text style={styles.label}>Longititude</Text>
           <TextInput
             style={styles.inputStyle}
             value={this.state.longittitude}
-            onChange={this.handleChange.bind(this)}
+            onChangeText={text => this.setState({longittitude: Text})}
+            keyboardType={"numeric"}
           />
           <Text style={styles.label}>Latitude</Text>
           <TextInput
             style={styles.inputStyle}
-            value={this.state.longittitude}
-            onChange={this.handleChange.bind(this)}
+            value={this.state.latitude}
+            onChangeText={text => this.setState({latitude: text})}
+            keyboardType={"numeric"}
           />
           <TouchableHighlight
             style={styles.btnStyle}
@@ -68,7 +75,7 @@ class AddForm extends Component {
             <GradientBtn name="Enregistrer" />
           </TouchableHighlight>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
