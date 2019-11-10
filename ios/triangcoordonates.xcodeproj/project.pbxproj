@@ -37,6 +37,13 @@
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
 			remoteInfo = "triangcoordonates-tvOS";
 		};
+		3C091D5923778A6500B1DCC9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3C091D5523778A6500B1DCC9 /* SplashScreen.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D7682761D8E76B80014119E;
+			remoteInfo = SplashScreen;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +60,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = triangcoordonates/main.m; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* triangcoordonates-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "triangcoordonates-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* triangcoordonates-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "triangcoordonates-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C091D5523778A6500B1DCC9 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		4546393A1DCCF6FFF47555DE /* Pods-triangcoordonates.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-triangcoordonates.debug.xcconfig"; path = "Target Support Files/Pods-triangcoordonates/Pods-triangcoordonates.debug.xcconfig"; sourceTree = "<group>"; };
 		52637B122E5CE46A80B42B7C /* Pods-triangcoordonates.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-triangcoordonates.release.xcconfig"; path = "Target Support Files/Pods-triangcoordonates/Pods-triangcoordonates.release.xcconfig"; sourceTree = "<group>"; };
 		52DF1EF9EADB4A385B01D853 /* Pods-triangcoordonates-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-triangcoordonates-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-triangcoordonates-tvOSTests/Pods-triangcoordonates-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -157,9 +165,18 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		3C091D5623778A6500B1DCC9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3C091D5A23778A6500B1DCC9 /* libSplashScreen.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				3C091D5523778A6500B1DCC9 /* SplashScreen.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -326,6 +343,12 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 3C091D5623778A6500B1DCC9 /* Products */;
+					ProjectRef = 3C091D5523778A6500B1DCC9 /* SplashScreen.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* triangcoordonates */,
@@ -335,6 +358,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		3C091D5A23778A6500B1DCC9 /* libSplashScreen.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSplashScreen.a;
+			remoteRef = 3C091D5923778A6500B1DCC9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		00E356EC1AD99517003FC87E /* Resources */ = {
