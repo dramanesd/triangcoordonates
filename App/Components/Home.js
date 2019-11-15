@@ -1,19 +1,33 @@
 import React, {Component} from 'react';
-
-import donnees from '../../db/data.json';
-
 import {View, Text, StyleSheet, FlatList, Image} from 'react-native';
+import Database from '../utils';
+
+const db = new Database();
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
+      coordonnees: [],
     };
   }
 
   componentDidMount() {
-    this.setState({data: donnees});
+    this._subscribe = this.props.navigation.addListener('didFocus', () => {
+      this.getCoordonnees();
+    });
+  }
+
+  getCoordonnees() {
+    let coordonnees = [];
+    db.getGeoData().then((data) => {
+      coordonnees = data;
+      this.setState({
+        coordonnees,
+      });
+    }).catch((err) => {
+      console.log('Results not found ', err);
+    });
   }
 
   ItemSeparator = () => {
@@ -31,7 +45,7 @@ class Home extends Component {
           <View style={styles.body}>
             <Text style={styles.itemTitle}>{item.noeud}</Text>
             <Text style={styles.mainText}>
-              Long: {item.long}, Lat: {item.long}
+              Long: {item.longitude}, Lat: {item.latitude}
             </Text>
             <Text style={styles.date}>{item.createdAt}</Text>
           </View>
@@ -42,9 +56,9 @@ class Home extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{backgroundColor: '#301545'}}>
         <FlatList
-          data={this.state.data.donnees}
+          data={this.state.coordonnees}
           renderItem={this.renderRow}
           ItemSeparatorComponent={this.ItemSeparator}
           keyExtractor={(item, index) => index.toString()}

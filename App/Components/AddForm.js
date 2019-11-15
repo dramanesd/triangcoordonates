@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 
+import Database from '../utils';
+
 import {
   View,
   Text,
@@ -20,26 +22,38 @@ const GradientBtn = ({name}) => (
   </LinearGradient>
 );
 
+const db = new Database();
+
 class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       noeud: '',
-      longittitude: 0,
+      longitude: 0,
       latitude: 0,
     };
   }
 
-  handleChange(e) {
-    this.setState({
-      noeud: e.nativeEvent.text,
-      longittitude: e.nativeEvent.text,
-      latitude: e.nativeEvent.text,
-    });
-  }
-
   handleSubmit() {
-    console.log('Hi');
+    console.log('handleSubmit was clicked');
+
+    let data = {
+      id: this.state.id,
+      noeud: this.state.noeud,
+      longitude: this.state.longitude,
+      latitude: this.state.latitude
+    }
+
+    db.addGeoData(data).then((results) => {
+      this.setState({
+        noeud: '',
+        longitude: 0,
+        latitude: 0
+      });
+      this.props.navigation.goBack();
+    }).catch((err) => {
+      console.log('Not inserted ', err);
+    });
   }
 
   render() {
@@ -55,19 +69,19 @@ class AddForm extends Component {
             value={this.state.noeud}
             onChangeText={text => this.setState({noeud: text})}
           />
-          <Text style={styles.label}>Longititude</Text>
+          <Text style={styles.label}>Longitude</Text>
           <TextInput
             style={styles.inputStyle}
-            value={this.state.longittitude}
-            onChangeText={text => this.setState({longittitude: Text})}
-            keyboardType={"numeric"}
+            value={this.state.longitude}
+            onChangeText={text => this.setState({longitude: text})}
+            keyboardType={"number-pad"}
           />
           <Text style={styles.label}>Latitude</Text>
           <TextInput
             style={styles.inputStyle}
             value={this.state.latitude}
             onChangeText={text => this.setState({latitude: text})}
-            keyboardType={"numeric"}
+            keyboardType={"number-pad"}
           />
           <TouchableHighlight
             style={styles.btnStyle}
