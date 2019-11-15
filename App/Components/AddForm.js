@@ -47,8 +47,8 @@ class AddForm extends Component {
     db.addGeoData(data).then((results) => {
       this.setState({
         noeud: '',
-        longitude: 0,
-        latitude: 0
+        longitude: '0',
+        latitude: '0'
       });
       this.props.navigation.goBack();
     }).catch((err) => {
@@ -74,14 +74,14 @@ class AddForm extends Component {
             style={styles.inputStyle}
             value={this.state.longitude}
             onChangeText={text => this.setState({longitude: text})}
-            keyboardType={"number-pad"}
+            keyboardType={"numeric"}
           />
           <Text style={styles.label}>Latitude</Text>
           <TextInput
             style={styles.inputStyle}
             value={this.state.latitude}
             onChangeText={text => this.setState({latitude: text})}
-            keyboardType={"number-pad"}
+            keyboardType={"numeric"}
           />
           <TouchableHighlight
             style={styles.btnStyle}
