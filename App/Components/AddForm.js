@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
+import Moment from 'moment';
 
 import Database from '../utils';
 
@@ -24,13 +25,16 @@ const GradientBtn = ({name}) => (
 
 const db = new Database();
 
+const date = Moment(Date.now()).format('DD/MM/YYYY');
+
 class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       noeud: '',
-      longitude: 0,
-      latitude: 0,
+      longitude: '',
+      latitude: '',
+      createdAt: date
     };
   }
 
@@ -38,17 +42,18 @@ class AddForm extends Component {
     console.log('handleSubmit was clicked');
 
     let data = {
-      id: this.state.id,
       noeud: this.state.noeud,
       longitude: this.state.longitude,
-      latitude: this.state.latitude
+      latitude: this.state.latitude,
+      createdAt: this.state.createdAt
     }
 
     db.addGeoData(data).then((results) => {
       this.setState({
         noeud: '',
-        longitude: '0',
-        latitude: '0'
+        longitude: '',
+        latitude: '',
+        createdAt: date
       });
       this.props.navigation.goBack();
     }).catch((err) => {

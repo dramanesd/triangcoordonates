@@ -30,7 +30,7 @@ export default class Database {
               console.log('Received error: ', error);
               console.log("Database not yet ready ... populating data");
               db.transaction((tx) => {
-                db.executeSql('CREATE TABLE IF NOT EXISTS Coordonnees (id, noeud, longitude, latitude)');
+                db.executeSql('CREATE TABLE IF NOT EXISTS Coordonnees (id INTEGER PRIMARY KEY AUTOINCREMENT, noeud VARCHAR(10), longitude VARCHAR(50), latitude VARCHAR(50), createdAt TEXT)');
               }).then(() => {
                 console.log('Table created successfully');
               }).catch(error => {
@@ -67,7 +67,7 @@ export default class Database {
     return new Promise((resolve) => {
       this.initDB().then((db) => {
         db.transaction((tx) => {
-          tx.executeSql('INSERT INTO Coordonnees VALUES (?,?,?,?)', [coordonate.id, coordonate.noeud, coordonate.longitude, coordonate.latitude])
+          tx.executeSql('INSERT INTO Coordonnees VALUES (?,?,?,?,?)', [coordonate.id, coordonate.noeud, coordonate.longitude, coordonate.latitude, coordonate.createdAt])
           .then(([tx, results]) => {
             resolve(results);
           }).catch((err) => {
@@ -89,17 +89,18 @@ export default class Database {
       const coordonnees = [];
       this.initDB().then((db) => {
         db.transaction((tx) => {
-          tx.executeSql('SELECT c.id, c.noeud, c.longitude, c.latitude FROM Coordonnees c', [])
+          tx.executeSql('SELECT c.id, c.noeud, c.longitude, c.latitude, c.createdAt FROM Coordonnees c ORDER BY c.createdAt DESC', [])
             .then(([tx, results]) => {
               var len = results.rows.length;
               for (let i = 0; i < len; i++) {
                 let row = results.rows.item(i);
-                const {id, noeud, longitude, latitude} = row;
+                const {id, noeud, longitude, latitude, createdAt} = row;
                 coordonnees.push({
                   id,
                   noeud,
                   longitude,
-                  latitude
+                  latitude,
+                  createdAt
                 });
               }
               console.log(coordonnees);
