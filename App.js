@@ -17,23 +17,13 @@ const HomeStack = createStackNavigator(
     Me: {screen: About},
   },
   {
-    defaultNavigationOptions: ({navigation}) => ({
+    initialRouteName: 'Home',
+    navigationOptions: ({navigation}) => ({
       // //Header customization of the perticular Screen
       headerStyle: {
         backgroundColor: '#7B1FA2',
       },
       headerTintColor: '#FFFFFF',
-      title: 'Coordonnées',
-      headerRight: () => (
-        <Icon.Button
-          type={'MaterialIcons'}
-          name={'add-circle'}
-          size={30}
-          underlayColor={'transparent'}
-          backgroundColor={'transparent'}
-          onPress={() => navigation.navigate('Add')}
-        />
-      ),
     }),
   },
 );

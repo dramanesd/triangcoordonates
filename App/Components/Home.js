@@ -1,10 +1,32 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, FlatList, Image} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Database from '../utils';
 
 const db = new Database();
 
 class Home extends Component {
+
+  static navigationOptions = ({navigation}) => {
+    return {
+      title: 'Coordonnees',
+      headerRight: () => (
+        <Icon.Button
+          type={'MaterialIcons'}
+          name={'add-circle'}
+          size={30}
+          underlayColor={'transparent'}
+          backgroundColor={'transparent'}
+          onPress={() => navigation.navigate('Add')}
+        />
+      ),
+      headerStyle: {
+        backgroundColor: '#7B1FA2',
+      },
+      headerTintColor: '#FFFFFF',
+    };
+  };
+
   constructor(props) {
     super(props);
     this.state = {

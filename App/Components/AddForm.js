@@ -28,6 +28,17 @@ const db = new Database();
 const date = Moment(Date.now()).format('DD/MM/YYYY');
 
 class AddForm extends Component {
+
+  static navigationOptions = ({navigation}) => {
+    return {
+      title: 'Add Coordonate',
+      headerStyle: {
+        backgroundColor: '#7B1FA2',
+      },
+      headerTintColor: '#FFFFFF',
+    };
+  };
+
   constructor(props) {
     super(props);
     this.state = {
