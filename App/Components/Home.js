@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, FlatList, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Moment from 'moment';
 import Database from '../utils';
 
 const db = new Database();
@@ -69,7 +70,7 @@ class Home extends Component {
             <Text style={styles.mainText}>
               Long: {item.longitude}, Lat: {item.latitude}
             </Text>
-            <Text style={styles.date}>{item.createdAt}</Text>
+            <Text style={styles.date}>{Moment(item.createdAt).format('DD/MM/YYYY')}</Text>
           </View>
         </View>
       </View>

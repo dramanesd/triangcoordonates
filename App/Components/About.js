@@ -48,6 +48,7 @@ const About = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#261136',
   },
   content: {
     height: '100%',

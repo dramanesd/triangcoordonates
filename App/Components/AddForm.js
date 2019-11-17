@@ -25,8 +25,6 @@ const GradientBtn = ({name}) => (
 
 const db = new Database();
 
-const date = Moment(Date.now()).format('DD/MM/YYYY');
-
 class AddForm extends Component {
 
   static navigationOptions = ({navigation}) => {
@@ -45,7 +43,7 @@ class AddForm extends Component {
       noeud: '',
       longitude: '',
       latitude: '',
-      createdAt: date
+      createdAt: Moment(Date.now()).format(),
     };
   }
 
@@ -64,7 +62,7 @@ class AddForm extends Component {
         noeud: '',
         longitude: '',
         latitude: '',
-        createdAt: date
+        createdAt: Moment(Date.now()).format(),
       });
       this.props.navigation.goBack();
     }).catch((err) => {
