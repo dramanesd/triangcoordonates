@@ -7,6 +7,7 @@ import SplashScreen from 'react-native-splash-screen';
 
 import Home from './App/Components/Home';
 import AddForm from './App/Components/AddForm';
+import EditForm from './App/Components/EditForm';
 import About from './App/Components/About';
 
 const HomeStack = createStackNavigator(
@@ -14,6 +15,7 @@ const HomeStack = createStackNavigator(
     //Defination of Navigaton from home screen
     Home: {screen: Home},
     Add: {screen: AddForm},
+    Edit: {screen: EditForm},
     Me: {screen: About},
   },
   {
@@ -83,7 +85,6 @@ const TabNavigator = createBottomTabNavigator(
 const AppContainer = createAppContainer(TabNavigator);
 
 class App extends Component {
-
   componentDidMount() {
     SplashScreen.hide();
   }

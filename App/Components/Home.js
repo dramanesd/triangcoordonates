@@ -7,7 +7,6 @@ import Database from '../utils';
 const db = new Database();
 
 class Home extends Component {
-
   static navigationOptions = ({navigation}) => {
     return {
       title: 'Coordonnees',
@@ -34,31 +33,35 @@ class Home extends Component {
       coordonnees: [],
     };
 
-    deleteCoordonnees = (id) => {
-      const {navigation} = this.props;
-      db.deleteGeoData(id).then((result) => {
-        console.log(result);
-        this.getCoordonnees();
-        this.props.navigation.navigate('Home');
-      }).catch((err) => {
-        console.log(err);
-      });
-    }
+    deleteCoordonnees = id => {
+      db.deleteGeoData(id)
+        .then(result => {
+          console.log(result);
+          this.getCoordonnees();
+          this.props.navigation.navigate('Home');
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    };
 
-    editOptionAlertHandler=(item)=>{
+    editOptionAlertHandler = item => {
       Alert.alert(
         //title
         'Edit Options',
         //body
         'Choose an options',
         [
-          {text: 'Modify', onPress: () => console.log(item)},
+          {
+            text: 'Modify',
+            onPress: () => this.props.navigation.navigate('Edit', {id: item}),
+          },
           {text: 'Delete', onPress: () => deleteCoordonnees(item)},
           {text: 'Cancel', onPress: () => console.log('Cancel Pressed')},
         ],
-        { cancelable: false }
-      )
-    }
+        {cancelable: false},
+      );
+    };
   }
 
   componentDidMount() {
@@ -69,14 +72,16 @@ class Home extends Component {
 
   getCoordonnees() {
     let coordonnees = [];
-    db.getGeoData().then((data) => {
-      coordonnees = data;
-      this.setState({
-        coordonnees,
+    db.getGeoData()
+      .then(data => {
+        coordonnees = data;
+        this.setState({
+          coordonnees,
+        });
+      })
+      .catch(err => {
+        console.log('Results not found ', err);
       });
-    }).catch((err) => {
-      console.log('Results not found ', err);
-    });
   }
 
   ItemSeparator = () => {
@@ -96,7 +101,9 @@ class Home extends Component {
             <Text style={styles.mainText}>
               Long: {item.longitude}, Lat: {item.latitude}
             </Text>
-            <Text style={styles.date}>{Moment(item.createdAt).format('DD/MM/YYYY')}</Text>
+            <Text style={styles.date}>
+              {Moment(item.createdAt).format('DD/MM/YYYY')}
+            </Text>
           </View>
         </View>
         <Icon.Button

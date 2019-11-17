@@ -25,10 +25,10 @@ const GradientBtn = ({name}) => (
 
 const db = new Database();
 
-class AddForm extends Component {
+class EditForm extends Component {
   static navigationOptions = ({navigation}) => {
     return {
-      title: 'Add Coordonate',
+      title: 'Edit Coordonate',
       headerStyle: {
         backgroundColor: '#7B1FA2',
       },
@@ -39,69 +39,103 @@ class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: '',
       noeud: '',
       longitude: '',
       latitude: '',
-      createdAt: Moment(Date.now()).format(),
+      createdAt: '',
     };
+  }
+
+  componentDidMount() {
+    const {navigation} = this.props;
+    db.GeoDataById(navigation.getParam('id'))
+      .then(data => {
+        console.log(data);
+        const coordonnees = data;
+        this.setState({
+          id: coordonnees.id,
+          noeud: coordonnees.noeud,
+          longitude: coordonnees.longitude,
+          latitude: coordonnees.latitude,
+          createdAt: coordonnees.createdAt
+        });
+      })
+      .catch(err => {
+        console.log('Update: ', err);
+      });
+  }
+
+  updateCoordonnees() {
+    let data = {
+      id: this.state.id,
+      noeud: this.state.noeud,
+      longitude: this.state.longitude,
+      latitude: this.state.latitude,
+      createdAt: this.state.createdAt
+    };
+    db.updateGeoData(data.id, data).then((result) => {
+      console.log('Result: ', result);
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+
+  updateTextInput = (text, field) => {
+    const state = this.state
+    state[field] = text;
+    this.setState(state);
   }
 
   handleSubmit() {
     console.log('handleSubmit was clicked');
 
     let data = {
+      id: this.state.id,
       noeud: this.state.noeud,
       longitude: this.state.longitude,
       latitude: this.state.latitude,
-      createdAt: this.state.createdAt,
+      createdAt: this.state.createdAt
     };
-
-    db.addGeoData(data)
-      .then(results => {
-        this.setState({
-          noeud: '',
-          longitude: '',
-          latitude: '',
-          createdAt: Moment(Date.now()).format(),
-        });
-        this.props.navigation.goBack();
-      })
-      .catch(err => {
-        console.log('Not inserted ', err);
-      });
+    db.updateGeoData(data.id, data).then((result) => {
+      console.log('Result: ', result);
+      this.props.navigation.navigate('Home');
+    }).catch((err) => {
+      console.log(err);
+    });
   }
 
   render() {
     return (
       <ScrollView style={styles.container}>
         <View style={styles.headerStyle}>
-          <Text style={styles.headerText}>Ajouter les Coodonnées</Text>
+          <Text style={styles.headerText}>Modifier les Coodonnées</Text>
         </View>
         <View style={styles.formStyle}>
           <Text style={styles.label}>Noeud</Text>
           <TextInput
             style={styles.inputStyle}
             value={this.state.noeud}
-            onChangeText={text => this.setState({noeud: text})}
+            onChangeText={text => this.updateTextInput(text, 'noeud')}
           />
           <Text style={styles.label}>Longitude</Text>
           <TextInput
             style={styles.inputStyle}
             value={this.state.longitude}
-            onChangeText={text => this.setState({longitude: text})}
+            onChangeText={text => this.updateTextInput(text, 'longitude')}
             keyboardType={'numeric'}
           />
           <Text style={styles.label}>Latitude</Text>
           <TextInput
             style={styles.inputStyle}
             value={this.state.latitude}
-            onChangeText={text => this.setState({latitude: text})}
+            onChangeText={text => this.updateTextInput(text, 'latitude')}
             keyboardType={'numeric'}
           />
           <TouchableHighlight
             style={styles.btnStyle}
             onPress={this.handleSubmit.bind(this)}>
-            <GradientBtn name="Enregistrer" />
+            <GradientBtn name="Update" />
           </TouchableHighlight>
         </View>
       </ScrollView>
@@ -157,4 +191,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddForm;
+export default EditForm;

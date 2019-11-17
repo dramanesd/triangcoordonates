@@ -2,7 +2,14 @@ import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Entypo';
 
-import {View, Text, ScrollView, Image, StyleSheet, Platform} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  StyleSheet,
+  Platform,
+} from 'react-native';
 
 const Badge = () => (
   <LinearGradient
