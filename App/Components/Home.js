@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, FlatList, Image} from 'react-native';
+import {View, Text, StyleSheet, FlatList, Image, Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Moment from 'moment';
 import Database from '../utils';
@@ -57,6 +57,25 @@ class Home extends Component {
     return <View style={styles.separator} />;
   };
 
+  editOptionAlertHandler=()=>{
+    Alert.alert(
+      //title
+      'Edit Options',
+      //body
+      'Choose an options',
+      [
+        {text: 'Modify', onPress: () => console.log('May be Pressed')},
+        {text: 'Delete', onPress: () => console.log('Yes Pressed')},
+        {text: 'Cancel', onPress: () => console.log('OK Pressed')},
+      ],
+      { cancelable: false }
+    )
+  }
+
+  test=()=>{
+    console.log('Je suis test');
+  }
+
   renderRow({item}) {
     return (
       <View style={styles.container}>
@@ -73,6 +92,28 @@ class Home extends Component {
             <Text style={styles.date}>{Moment(item.createdAt).format('DD/MM/YYYY')}</Text>
           </View>
         </View>
+        <Icon.Button
+          style={styles.editIcon}
+          type={'MaterialIcons'}
+          name={'edit'}
+          size={25}
+          underlayColor={'transparent'}
+          backgroundColor={'transparent'}
+          onPress={() => (
+            Alert.alert(
+              //title
+              'Edit Options',
+              //body
+              'Choose an options',
+              [
+                {text: 'Modify', onPress: () => console.log('May be Pressed')},
+                {text: 'Delete', onPress: () => console.log('Yes Pressed')},
+                {text: 'Cancel', onPress: () => console.log('OK Pressed')},
+              ],
+              { cancelable: true }
+            )
+          )}
+        />
       </View>
     );
   }
@@ -93,13 +134,21 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexBasis: 1,
     backgroundColor: '#301545',
     flexDirection: 'row',
     padding: 10,
   },
   mainContent: {
+    width: '70%',
     marginLeft: 20,
+  },
+  itemIcon: {
+    // width: '10%',
+  },
+  editIcon: {
+    // width: '5%',
+    marginRight: 20,
   },
   itemTitle: {
     color: '#FFFFFF',
