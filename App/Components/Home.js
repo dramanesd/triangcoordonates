@@ -33,6 +33,32 @@ class Home extends Component {
     this.state = {
       coordonnees: [],
     };
+
+    deleteCoordonnees = (id) => {
+      const {navigation} = this.props;
+      db.deleteGeoData(id).then((result) => {
+        console.log(result);
+        this.getCoordonnees();
+        this.props.navigation.navigate('Home');
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
+
+    editOptionAlertHandler=(item)=>{
+      Alert.alert(
+        //title
+        'Edit Options',
+        //body
+        'Choose an options',
+        [
+          {text: 'Modify', onPress: () => console.log(item)},
+          {text: 'Delete', onPress: () => deleteCoordonnees(item)},
+          {text: 'Cancel', onPress: () => console.log('Cancel Pressed')},
+        ],
+        { cancelable: false }
+      )
+    }
   }
 
   componentDidMount() {
@@ -57,25 +83,6 @@ class Home extends Component {
     return <View style={styles.separator} />;
   };
 
-  editOptionAlertHandler=()=>{
-    Alert.alert(
-      //title
-      'Edit Options',
-      //body
-      'Choose an options',
-      [
-        {text: 'Modify', onPress: () => console.log('May be Pressed')},
-        {text: 'Delete', onPress: () => console.log('Yes Pressed')},
-        {text: 'Cancel', onPress: () => console.log('OK Pressed')},
-      ],
-      { cancelable: false }
-    )
-  }
-
-  test=()=>{
-    console.log('Je suis test');
-  }
-
   renderRow({item}) {
     return (
       <View style={styles.container}>
@@ -99,20 +106,7 @@ class Home extends Component {
           size={25}
           underlayColor={'transparent'}
           backgroundColor={'transparent'}
-          onPress={() => (
-            Alert.alert(
-              //title
-              'Edit Options',
-              //body
-              'Choose an options',
-              [
-                {text: 'Modify', onPress: () => console.log('May be Pressed')},
-                {text: 'Delete', onPress: () => console.log('Yes Pressed')},
-                {text: 'Cancel', onPress: () => console.log('OK Pressed')},
-              ],
-              { cancelable: true }
-            )
-          )}
+          onPress={() => this.editOptionAlertHandler(item.id)}
         />
       </View>
     );

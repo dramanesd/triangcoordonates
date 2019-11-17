@@ -116,4 +116,24 @@ export default class Database {
       });
     });
   }
+
+  deleteGeoData(id) {
+    return new Promise((resolve) => {
+      this.initDB().then((db) => {
+        db.transaction((tx) => {
+          tx.executeSql('DELETE FROM Coordonnees WHERE id = ?', [id]).then(([tx, result]) => {
+            console.log(result);
+            resolve(result);
+          });
+        }).then((result) => {
+          this.closeDatabase(db);
+        }).catch((err) => {
+          console.log(err);
+        });
+      }).catch((err) => {
+        console.log(err);
+      });
+    });
+  }
+
 }
