@@ -48,16 +48,16 @@ class Home extends Component {
     editOptionAlertHandler = item => {
       Alert.alert(
         //title
-        'Edit Options',
+        'Options de Modification',
         //body
-        'Choose an options',
+        'Choisissez une option',
         [
           {
-            text: 'Modify',
+            text: 'Modifier',
             onPress: () => this.props.navigation.navigate('Edit', {id: item}),
           },
-          {text: 'Delete', onPress: () => deleteCoordonnees(item)},
-          {text: 'Cancel', onPress: () => console.log('Cancel Pressed')},
+          {text: 'Supprimer', onPress: () => deleteCoordonnees(item)},
+          {text: 'Annuler', onPress: () => console.log('Cancel Pressed')},
         ],
         {cancelable: false},
       );

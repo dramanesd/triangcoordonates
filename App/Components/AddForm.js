@@ -28,7 +28,7 @@ const db = new Database();
 class AddForm extends Component {
   static navigationOptions = ({navigation}) => {
     return {
-      title: 'Add Coordonate',
+      title: 'Ajouter',
       headerStyle: {
         backgroundColor: '#7B1FA2',
       },
@@ -75,7 +75,7 @@ class AddForm extends Component {
     return (
       <ScrollView style={styles.container}>
         <View style={styles.headerStyle}>
-          <Text style={styles.headerText}>Ajouter les Coodonnées</Text>
+          <Text style={styles.headerText}>Ajouter les Coordonnées</Text>
         </View>
         <View style={styles.formStyle}>
           <Text style={styles.label}>Noeud</Text>

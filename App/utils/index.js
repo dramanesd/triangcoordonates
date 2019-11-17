@@ -176,13 +176,7 @@ export default class Database {
           db.transaction(tx => {
             tx.executeSql(
               'UPDATE Coordonnees SET noeud = ?, longitude = ?, latitude = ?, createdAt = ? WHERE id = ?',
-              [
-                c.noeud,
-                c.longitude,
-                c.latitude,
-                c.createdAt,
-                id,
-              ],
+              [c.noeud, c.longitude, c.latitude, c.createdAt, id],
             ).then(([tx, results]) => {
               resolve(results);
             });

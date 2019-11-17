@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import Moment from 'moment';
 
 import Database from '../utils';
 
@@ -28,7 +27,7 @@ const db = new Database();
 class EditForm extends Component {
   static navigationOptions = ({navigation}) => {
     return {
-      title: 'Edit Coordonate',
+      title: 'Modifier',
       headerStyle: {
         backgroundColor: '#7B1FA2',
       },
@@ -58,7 +57,7 @@ class EditForm extends Component {
           noeud: coordonnees.noeud,
           longitude: coordonnees.longitude,
           latitude: coordonnees.latitude,
-          createdAt: coordonnees.createdAt
+          createdAt: coordonnees.createdAt,
         });
       })
       .catch(err => {
@@ -72,20 +71,22 @@ class EditForm extends Component {
       noeud: this.state.noeud,
       longitude: this.state.longitude,
       latitude: this.state.latitude,
-      createdAt: this.state.createdAt
+      createdAt: this.state.createdAt,
     };
-    db.updateGeoData(data.id, data).then((result) => {
-      console.log('Result: ', result);
-    }).catch((err) => {
-      console.log(err);
-    });
+    db.updateGeoData(data.id, data)
+      .then(result => {
+        console.log('Result: ', result);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   updateTextInput = (text, field) => {
-    const state = this.state
+    const state = this.state;
     state[field] = text;
     this.setState(state);
-  }
+  };
 
   handleSubmit() {
     console.log('handleSubmit was clicked');
@@ -95,21 +96,23 @@ class EditForm extends Component {
       noeud: this.state.noeud,
       longitude: this.state.longitude,
       latitude: this.state.latitude,
-      createdAt: this.state.createdAt
+      createdAt: this.state.createdAt,
     };
-    db.updateGeoData(data.id, data).then((result) => {
-      console.log('Result: ', result);
-      this.props.navigation.navigate('Home');
-    }).catch((err) => {
-      console.log(err);
-    });
+    db.updateGeoData(data.id, data)
+      .then(result => {
+        console.log('Result: ', result);
+        this.props.navigation.navigate('Home');
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   render() {
     return (
       <ScrollView style={styles.container}>
         <View style={styles.headerStyle}>
-          <Text style={styles.headerText}>Modifier les Coodonnées</Text>
+          <Text style={styles.headerText}>Modifier les Coordonnées</Text>
         </View>
         <View style={styles.formStyle}>
           <Text style={styles.label}>Noeud</Text>
@@ -135,7 +138,7 @@ class EditForm extends Component {
           <TouchableHighlight
             style={styles.btnStyle}
             onPress={this.handleSubmit.bind(this)}>
-            <GradientBtn name="Update" />
+            <GradientBtn name="Modifier" />
           </TouchableHighlight>
         </View>
       </ScrollView>
