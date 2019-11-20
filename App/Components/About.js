@@ -18,13 +18,15 @@ const Badge = () => {
       end={{x: 1, y: 0}}
       colors={['#4527A0', '#7B1FA2']}
       style={styles.gradient}>
-      <Image source={require('../../assets/img/dra.png')} style={styles.avatar} />
+      <Image
+        source={require('../../assets/img/dra.png')}
+        style={styles.avatar}
+      />
       <Text style={styles.headerTitle}>Dramane DOUMBIA</Text>
       <Text style={styles.headerSubTitle}>Bamako, Mali</Text>
     </LinearGradient>
-  )
-}
-
+  );
+};
 
 const About = () => (
   <ScrollView style={styles.container}>
@@ -51,7 +53,7 @@ const About = () => (
       </View>
     </View>
   </ScrollView>
-)
+);
 
 const styles = StyleSheet.create({
   container: {

@@ -1,5 +1,14 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, FlatList, Image, Alert, ActivityIndicator, Platform} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Image,
+  Alert,
+  ActivityIndicator,
+  Platform,
+} from 'react-native';
 import {SearchBar} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Moment from 'moment';
@@ -16,7 +25,6 @@ class Home extends Component {
           type={'MaterialIcons'}
           name={'add-circle'}
           size={30}
-          underlayColor={'transparent'}
           backgroundColor={'transparent'}
           onPress={() => navigation.navigate('Add')}
         />
@@ -34,7 +42,7 @@ class Home extends Component {
       coordonnees: [],
       isLoading: true,
       listEmpty: 'Aucun donnée trouvé, Veuillez Ajouter des données !',
-      search: ''
+      search: '',
     };
 
     this.arrayholder = [];
@@ -88,13 +96,12 @@ class Home extends Component {
           },
           function() {
             this.arrayholder = coordonnees;
-          }
+          },
         );
       })
       .catch(err => {
         console.log('Results not found ', err);
-        this.setState(
-          {
+        this.setState({
           isLoading: false,
         });
       });
@@ -102,11 +109,11 @@ class Home extends Component {
 
   search = text => {
     console.log(text);
-  }
+  };
 
   clear = () => {
     this.search.clear();
-  }
+  };
 
   SearchFilterFunction(text) {
     const newData = this.arrayholder.filter(function(item) {
@@ -155,51 +162,47 @@ class Home extends Component {
     );
   }
 
+  searchBar = () => (
+    <SearchBar
+      containerStyle={{backgroundColor: 'transparent'}}
+      inputContainerStyle={styles.inputContainerStyle}
+      inputStyle={{backgroundColor: 'transparent'}}
+      underlineColorAndroid='transparent'
+      round
+      searchIcon={{size: 24}}
+      onChangeText={text => this.SearchFilterFunction(text)}
+      onClear={text => this.SearchFilterFunction('')}
+      placeholder="Searcher les Noeuds Ici..."
+      value={this.state.search}
+    />
+  );
+
   render() {
-    if(this.state.isLoading){
-      return(
+    if (this.state.isLoading) {
+      return (
         <View style={styles.activity}>
-          <ActivityIndicator size="large" color="#301545"/>
+          <ActivityIndicator size="large" color="#301545" />
         </View>
-      )
+      );
     }
 
-    if(this.state.coordonnees.length === 0){
-      return(
+    if (this.state.coordonnees.length === 0) {
+      return (
         <View style={styles.emptyView}>
-            <SearchBar
-            containerStyle={{backgroundColor: 'transparent',}}
-            inputContainerStyle={styles.inputContainerStyle}
-            inputStyle={{backgroundColor: 'transparent'}}
-            underlineColorAndroid={'default'}
-            round
-            searchIcon={{ size: 24 }}
-            onChangeText={text => this.SearchFilterFunction(text)}
-            onClear={text => this.SearchFilterFunction('')}
-            placeholder="Searcher Ici..."
-            value={this.state.search} />
+          {this.searchBar()}
           <View style={styles.emptyContent}>
-            <Image 
-              style={styles.emptyContentImg} 
+            {/* <Image
+              style={styles.emptyContentImg}
               source={require('../../assets/img/backgroundLogo.png')}
-              />
+              /> */}
             <Text style={styles.message}>{this.state.listEmpty}</Text>
           </View>
         </View>
-      )
+      );
     }
     return (
       <View style={{backgroundColor: '#301545'}}>
-        <SearchBar
-          containerStyle={{backgroundColor: 'transparent', padding: 20}}
-          inputContainerStyle={styles.inputContainerStyle}
-          inputStyle={{backgroundColor: 'transparent'}}
-          round
-          searchIcon={{ size: 24 }}
-          onChangeText={text => this.SearchFilterFunction(text)}
-          onClear={text => this.SearchFilterFunction('')}
-          placeholder="Searcher Ici..."
-          value={this.state.search} />
+        {this.searchBar()}
         <FlatList
           data={this.state.coordonnees}
           renderItem={this.renderRow}
@@ -265,7 +268,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     justifyContent: 'center',
-    marginTop: 10,
     paddingLeft: 50,
     paddingRight: 50,
     textAlign: 'center',
@@ -275,8 +277,8 @@ const styles = StyleSheet.create({
     borderColor: '#4527A0',
     borderWidth: 1,
     borderBottomColor: '#4527A0',
-    borderBottomWidth: 1
-  }
+    borderBottomWidth: 1,
+  },
 });
 
 export default Home;
