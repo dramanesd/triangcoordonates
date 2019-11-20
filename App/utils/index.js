@@ -109,7 +109,7 @@ export default class Database {
         .then(db => {
           db.transaction(tx => {
             tx.executeSql(
-              'SELECT c.id, c.noeud, c.longitude, c.latitude, c.createdAt FROM Coordonnees c ORDER BY c.createdAt DESC',
+              'SELECT * FROM Coordonnees ORDER BY createdAt DESC',
               [],
             ).then(([tx, results]) => {
               var len = results.rows.length;

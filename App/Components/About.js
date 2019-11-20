@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Entypo';
 
@@ -11,46 +11,47 @@ import {
   Platform,
 } from 'react-native';
 
-const Badge = () => (
-  <LinearGradient
-    start={{x: 0, y: 0}}
-    end={{x: 1, y: 0}}
-    colors={['#4527A0', '#7B1FA2']}
-    style={styles.gradient}>
-    <Image source={require('../../assets/img/dra.png')} style={styles.avatar} />
-    <Text style={styles.headerTitle}>Dramane DOUMBIA</Text>
-    <Text style={styles.headerSubTitle}>Bamako, Mali</Text>
-  </LinearGradient>
-);
-
-const About = () => {
+const Badge = () => {
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Badge />
+    <LinearGradient
+      start={{x: 0, y: 0}}
+      end={{x: 1, y: 0}}
+      colors={['#4527A0', '#7B1FA2']}
+      style={styles.gradient}>
+      <Image source={require('../../assets/img/dra.png')} style={styles.avatar} />
+      <Text style={styles.headerTitle}>Dramane DOUMBIA</Text>
+      <Text style={styles.headerSubTitle}>Bamako, Mali</Text>
+    </LinearGradient>
+  )
+}
+
+
+const About = () => (
+  <ScrollView style={styles.container}>
+    <View style={styles.header}>
+      <Badge />
+    </View>
+    <View style={styles.profileSeparator}>
+      <Text style={styles.profileSeparatorText}>PROFILE</Text>
+    </View>
+    <View style={styles.content}>
+      <Text style={styles.roleText}>Dévelppeur Web et Mobile, Freelance</Text>
+      <View style={styles.separator} />
+      <View style={styles.iconStyle}>
+        <Icon type={'Entypo'} name={'globe'} size={20} color={'#fff'} />
+        <Text style={styles.contentText}>www.dramane-doumbia.ml</Text>
       </View>
-      <View style={styles.profileSeparator}>
-        <Text style={styles.profileSeparatorText}>PROFILE</Text>
+      <View style={styles.iconStyle}>
+        <Icon type={'Entypo'} name={'github'} size={20} color={'#fff'} />
+        <Text style={styles.contentText}>Github/dramanesd</Text>
       </View>
-      <View style={styles.content}>
-        <Text style={styles.roleText}>Dévelppeur Web et Mobile, Freelance</Text>
-        <View style={styles.separator} />
-        <View style={styles.iconStyle}>
-          <Icon type={'Entypo'} name={'globe'} size={20} color={'#fff'} />
-          <Text style={styles.contentText}>www.dramane-doumbia.ml</Text>
-        </View>
-        <View style={styles.iconStyle}>
-          <Icon type={'Entypo'} name={'github'} size={20} color={'#fff'} />
-          <Text style={styles.contentText}>Github/dramanesd</Text>
-        </View>
-        <View style={styles.iconStyle}>
-          <Icon type={'Entypo'} name={'email'} size={20} color={'#fff'} />
-          <Text style={styles.contentText}>ddramane63@gmail.com</Text>
-        </View>
+      <View style={styles.iconStyle}>
+        <Icon type={'Entypo'} name={'email'} size={20} color={'#fff'} />
+        <Text style={styles.contentText}>ddramane63@gmail.com</Text>
       </View>
-    </ScrollView>
-  );
-};
+    </View>
+  </ScrollView>
+)
 
 const styles = StyleSheet.create({
   container: {

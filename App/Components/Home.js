@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, FlatList, Image, Alert} from 'react-native';
+import {View, Text, StyleSheet, FlatList, Image, Alert, ActivityIndicator, Platform} from 'react-native';
+import {SearchBar} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Moment from 'moment';
 import Database from '../utils';
@@ -31,7 +32,12 @@ class Home extends Component {
     super(props);
     this.state = {
       coordonnees: [],
+      isLoading: true,
+      listEmpty: 'Aucun donnée trouvé, Veuillez Ajouter des données !',
+      search: ''
     };
+
+    this.arrayholder = [];
 
     deleteCoordonnees = id => {
       db.deleteGeoData(id)
@@ -75,13 +81,43 @@ class Home extends Component {
     db.getGeoData()
       .then(data => {
         coordonnees = data;
-        this.setState({
-          coordonnees,
-        });
+        this.setState(
+          {
+            coordonnees,
+            isLoading: false,
+          },
+          function() {
+            this.arrayholder = coordonnees;
+          }
+        );
       })
       .catch(err => {
         console.log('Results not found ', err);
+        this.setState(
+          {
+          isLoading: false,
+        });
       });
+  }
+
+  search = text => {
+    console.log(text);
+  }
+
+  clear = () => {
+    this.search.clear();
+  }
+
+  SearchFilterFunction(text) {
+    const newData = this.arrayholder.filter(function(item) {
+      const itemData = item.noeud ? item.noeud.toUpperCase() : ''.toUpperCase();
+      const textData = text.toUpperCase();
+      return itemData.indexOf(textData) > -1;
+    });
+    this.setState({
+      coordonnees: newData,
+      search: text,
+    });
   }
 
   ItemSeparator = () => {
@@ -120,8 +156,50 @@ class Home extends Component {
   }
 
   render() {
+    if(this.state.isLoading){
+      return(
+        <View style={styles.activity}>
+          <ActivityIndicator size="large" color="#301545"/>
+        </View>
+      )
+    }
+
+    if(this.state.coordonnees.length === 0){
+      return(
+        <View style={styles.emptyView}>
+            <SearchBar
+            containerStyle={{backgroundColor: 'transparent',}}
+            inputContainerStyle={styles.inputContainerStyle}
+            inputStyle={{backgroundColor: 'transparent'}}
+            underlineColorAndroid={'default'}
+            round
+            searchIcon={{ size: 24 }}
+            onChangeText={text => this.SearchFilterFunction(text)}
+            onClear={text => this.SearchFilterFunction('')}
+            placeholder="Searcher Ici..."
+            value={this.state.search} />
+          <View style={styles.emptyContent}>
+            <Image 
+              style={styles.emptyContentImg} 
+              source={require('../../assets/img/backgroundLogo.png')}
+              />
+            <Text style={styles.message}>{this.state.listEmpty}</Text>
+          </View>
+        </View>
+      )
+    }
     return (
       <View style={{backgroundColor: '#301545'}}>
+        <SearchBar
+          containerStyle={{backgroundColor: 'transparent', padding: 20}}
+          inputContainerStyle={styles.inputContainerStyle}
+          inputStyle={{backgroundColor: 'transparent'}}
+          round
+          searchIcon={{ size: 24 }}
+          onChangeText={text => this.SearchFilterFunction(text)}
+          onClear={text => this.SearchFilterFunction('')}
+          placeholder="Searcher Ici..."
+          value={this.state.search} />
         <FlatList
           data={this.state.coordonnees}
           renderItem={this.renderRow}
@@ -144,11 +222,7 @@ const styles = StyleSheet.create({
     width: '70%',
     marginLeft: 20,
   },
-  itemIcon: {
-    // width: '10%',
-  },
   editIcon: {
-    // width: '5%',
     marginRight: 20,
   },
   itemTitle: {
@@ -168,6 +242,41 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#9C27B0',
   },
+  activity: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emptyView: {
+    backgroundColor: '#EEC6FF',
+  },
+  emptyContent: {
+    height: '100%',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#EEC6FF',
+  },
+  message: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    marginTop: 10,
+    paddingLeft: 50,
+    paddingRight: 50,
+    textAlign: 'center',
+  },
+  inputContainerStyle: {
+    backgroundColor: 'transparent',
+    borderColor: '#4527A0',
+    borderWidth: 1,
+    borderBottomColor: '#4527A0',
+    borderBottomWidth: 1
+  }
 });
 
 export default Home;
